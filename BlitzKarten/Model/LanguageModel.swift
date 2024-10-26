@@ -19,7 +19,7 @@ struct Language {
     struct Topic: Identifiable, Hashable, Equatable {
         let id = UUID()
         let title: String
-        let lessonText: String
+        let htmlFileName: String
         let vocabulary: [Term]
         let quiz: [QuizItem]
     }
@@ -106,9 +106,7 @@ struct GermanLessonPlan: LessonPlan {
         static let germanTopics = [
             Language.Topic(
                 title: "Irregular(strong) verbs and their meanings",
-                lessonText: """
-                            This is the lesson for Irregular verbs
-                            """,
+                htmlFileName: "IrregularVerbs.html",
                 vocabulary: [
                     Language.Term(infinitive: "backen", translation: "bake", presentTense: "backt", imperfectTense: "backte", pastParticiple: "gebacken"),
                     Language.Term(infinitive: "befehlen", translation: "command, order", presentTense: "befiehlt", imperfectTense: "befahl", pastParticiple: "befohlen"),
@@ -251,13 +249,7 @@ struct GermanLessonPlan: LessonPlan {
             ),
             Language.Topic(
                 title: "Separable and Inseparable Prefix Verbs",
-                lessonText: """
-                    In German, many verbs have prefixes that either separate or stay attached to the main verb. 
-                    Separable prefixes, such as "auf-", "ab-", "an-", and "mit-", change the position of the 
-                    prefix based on the verb's tense and sentence structure. Inseparable prefixes, like "be-", 
-                    "emp-", "ent-", "er-", and "ver-", remain attached to the verb. Mastering these can help 
-                    in understanding German sentence flow and translation.
-                """,
+                htmlFileName: "PrefixVerbs.html",
                 vocabulary: [
                     Language.Term(infinitive: "anfangen", translation: "to begin", presentTense: "fängt an", imperfectTense: "fing an", pastParticiple: "angefangen"),
                     Language.Term(infinitive: "aufhören", translation: "to stop", presentTense: "hört auf", imperfectTense: "hörte auf", pastParticiple: "aufgehört"),

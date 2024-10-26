@@ -60,7 +60,7 @@ struct HomeView: View {
             .navigationDestination(for: NavigationDestination.self) { destination in
                 switch destination {
                 case .lesson(let topic):
-                    LessonView(topic: topic)
+                    LessonView(htmlFileName: topic.htmlFileName)
                 case .study(let topic):
                     StudyView(topic: topic)
                 case .quiz(let topic):
