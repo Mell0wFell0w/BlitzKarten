@@ -7,10 +7,20 @@
 
 import Foundation
 
-@Observable class LanguageViewModel  {
-    // MARK: - Props
+class LanguageViewModel: ObservableObject {
+    // MARK: - Properties
     
-    private var lessonPlan: LessonPlan = GermanLessonPlan(progress: [])
+    private var lessonPlan: GermanLessonPlan  // Directly use the concrete type
+    
+    // Track progress as an independent @Published property
+    @Published private(set) var progress: [Language.Progress]
+    
+    // MARK: - Initializer
+    init() {
+        let initialPlan = GermanLessonPlan(progress: [])
+        self.lessonPlan = initialPlan
+        self.progress = initialPlan.progress
+    }
     
     // MARK: - Model Access
     var languageName: String {
@@ -21,23 +31,35 @@ import Foundation
         lessonPlan.topics
     }
     
+    // Returns the progress for a specific topic title, creating a new record if one doesn't exist
     func progress(for title: String) -> Language.Progress {
-        if let progressRecord = lessonPlan.progress.first(where: {$0.topicTitle == title}) {
+        if let progressRecord = progress.first(where: { $0.topicTitle == title }) {
             return progressRecord
         }
         
-        let progressRecord = Language.Progress(topicTitle: title)
-        
-        lessonPlan.progress.append(progressRecord)
-        
-        return progressRecord
+        // Create and append a new progress record if not found
+        let newProgressRecord = Language.Progress(topicTitle: title)
+        progress.append(newProgressRecord)
+        lessonPlan.progress.append(newProgressRecord) // Sync with lessonPlan
+        return newProgressRecord
     }
     
-    // MARK: - User intents
+    // MARK: - User Intents
     
+    // Toggle lesson read state and update both progress and lessonPlan
     func toggleLessonRead(for title: String) {
-        lessonPlan.toggleLessonRead(for: title)
+        objectWillChange.send()  // Notify views of any changes
+        
+        if let index = progress.firstIndex(where: { $0.topicTitle == title }) {
+            progress[index].lessonRead.toggle()
+            lessonPlan.progress[index].lessonRead = progress[index].lessonRead // Sync with lessonPlan
+        } else {
+            // If not found, create a new progress record
+            let newProgress = Language.Progress(topicTitle: title, lessonRead: true)
+            progress.append(newProgress)
+            lessonPlan.progress.append(newProgress)  // Sync with lessonPlan
+        }
     }
-    
-    // MARK: - Private helpers
 }
+
+
