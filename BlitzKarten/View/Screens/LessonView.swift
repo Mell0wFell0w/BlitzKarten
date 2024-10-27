@@ -5,7 +5,6 @@
 //  Created by Brenna Cooper on 10/26/24.
 //
 
-import Foundation
 import SwiftUI
 import WebKit
 
@@ -14,11 +13,12 @@ struct LessonView: UIViewRepresentable {
 
     func makeUIView(context: Context) -> WKWebView {
         let webView = WKWebView()
-        if let filePath = Bundle.main.path(forResource: htmlFileName, ofType: "html"),
-           let htmlData = try? Data(contentsOf: URL(fileURLWithPath: filePath)) {
-            webView.loadHTMLString(String(data: htmlData, encoding: .utf8) ?? "", baseURL: nil)
+        
+        // Use URL-based loading
+        if let fileURL = Bundle.main.url(forResource: htmlFileName, withExtension: "html") {
+            webView.loadFileURL(fileURL, allowingReadAccessTo: fileURL)
         } else {
-            // Display an error message if the file could not be found
+            // Show error if file cannot be loaded
             let errorMessage = """
             <html>
             <body><h2>Error: Could not load \(htmlFileName).html</h2></body>
@@ -33,6 +33,3 @@ struct LessonView: UIViewRepresentable {
         // No update needed
     }
 }
-
-
-

@@ -105,8 +105,8 @@ struct GermanLessonPlan: LessonPlan {
     private struct Data {
         static let germanTopics = [
             Language.Topic(
-                title: "Irregular(strong) verbs and their meanings",
-                htmlFileName: "IrregularVerbs.html",
+                title: "Irregular(strong) verbs",
+                htmlFileName: "IrregularVerbs",
                 vocabulary: [
                     Language.Term(infinitive: "backen", translation: "bake", presentTense: "backt", imperfectTense: "backte", pastParticiple: "gebacken"),
                     Language.Term(infinitive: "befehlen", translation: "command, order", presentTense: "befiehlt", imperfectTense: "befahl", pastParticiple: "befohlen"),
@@ -248,8 +248,8 @@ struct GermanLessonPlan: LessonPlan {
                 ]
             ),
             Language.Topic(
-                title: "Separable and Inseparable Prefix Verbs",
-                htmlFileName: "PrefixVerbs.html",
+                title: "Prefix Verbs",
+                htmlFileName: "PrefixVerbs",
                 vocabulary: [
                     Language.Term(infinitive: "anfangen", translation: "to begin", presentTense: "fängt an", imperfectTense: "fing an", pastParticiple: "angefangen"),
                     Language.Term(infinitive: "aufhören", translation: "to stop", presentTense: "hört auf", imperfectTense: "hörte auf", pastParticiple: "aufgehört"),
