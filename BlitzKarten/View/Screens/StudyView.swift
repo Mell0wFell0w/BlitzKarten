@@ -29,7 +29,7 @@ struct StudyView: View {
 
             // TabView for vocabulary words in the selected study set
             TabView(selection: $selectedTab) {
-                ForEach(topic.vocabulary, id: \.self) { term in
+                ForEach(topic.vocabulary.shuffled(), id: \.self) { term in
                     VStack {
                         // Flip Card
                         FlipCard(isFlipped: $isFlipped, frontText: term.infinitive, backText: getTermText(for: term))
